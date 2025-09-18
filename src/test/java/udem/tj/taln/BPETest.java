@@ -41,7 +41,7 @@ public class BPETest {
         BPE.Encoding enc = bpe.encode(toyCounts(), 200);
 
         String w = "paris";
-        List<String> toks = bpe.tokenizeWord(w, enc.merges(), enc.charset());
+        List<String> toks = bpe.tokenizeWordFast(w, enc.merges(), enc.charset(), true);
 
         // concat of tokens == "_" + mot
         assertEquals("_" + w, String.join("", toks),
@@ -70,7 +70,7 @@ public class BPETest {
         BPE.Encoding enc = bpe.encode(toyCounts(), 200);
 
         // introduces unknown char
-        List<String> toks = bpe.tokenizeWord("euros€", enc.merges(), enc.charset());
+        List<String> toks = bpe.tokenizeWord("euros€", enc.merges(), enc.charset(), true);
         assertTrue(toks.contains("<UNK>"),
                 "Unknown char should produce <UNK>");
     }
